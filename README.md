@@ -79,22 +79,6 @@ ReFree Pro mimics human behavior using:
 
 ---
 
-## 📁 File Structure
-📦 ReFree-Pro/
-├── 📄 manifest.json      # Extension config
-├── ⚙️  background.js      # Main bot logic
-├── 🎨 popup.html         # UI layout
-├── 🖱️  popup.js           # UI interactions
-├── 📝 content.js         # Page automation
-├── 🧠 brain.js           # Query AI
-├── 🎭 behavior.js        # Human actions
-├── 🕐 timeBehavior.js    # Time adjustments
-├── 👁️  visualAI.js        # Visual processing
-├── 💅 styles.css         # UI styling
-└── 🖼️  icons/             # Extension icons
-
----
-
 ## 🔐 Permissions
 
 | Permission | Why It's Needed |
