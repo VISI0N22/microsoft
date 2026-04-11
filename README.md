@@ -45,11 +45,17 @@ A browser extension that performs realistic, human-like searches in the backgrou
 | 3️⃣ | ⏱️ Enter **Interval** (seconds between searches) |
 | 4️⃣ | 🟢 Click **Start Bot** |
 
-### 🔄 What Happens Next🌐 Opens Bing in background tab
+### 🔄 What Happens Next
+🌐 Opens Bing in background tab
+
 ⌨️  Types realistic search query
+
 🔍 Submits search
+
 ❌ Closes tab automatically
+
 🔁 Repeats until complete
+
 🛑 Click **Stop Bot** anytime to pause.
 
 ---
