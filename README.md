@@ -1,4 +1,4 @@
-# 🧠 Smart Search Bot (ReFree Pro)
+# 🧠 Microsoft Rewards Bot (ReFree Pro)
 
 A highly advanced Chrome extension that simulates realistic human browsing and search behavior using a built-in AI system — no API keys required.
 
