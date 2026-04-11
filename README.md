@@ -75,6 +75,15 @@ A highly advanced Chrome extension that simulates realistic human browsing and s
 
 ---
 
+## 🧠 How It Works
+
+1. AI generates a query
+2. Bot types it like a human
+3. Page is analyzed using Visual AI
+5. Bot learns from interaction
+6. Behavior adapts over time
+---
+
 ## ⚠️ Important Notes
 
 * This project is for **educational and experimental purposes only**
@@ -83,14 +92,3 @@ A highly advanced Chrome extension that simulates realistic human browsing and s
   * Ad fraud
   * Manipulation of services
   * Violating platform terms of service
-
----
-
-## 🧠 How It Works
-
-1. AI generates a query
-2. Bot types it like a human
-3. Page is analyzed using Visual AI
-5. Bot learns from interaction
-6. Behavior adapts over time
-
