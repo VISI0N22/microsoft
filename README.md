@@ -1,94 +1,145 @@
-# 🧠 Microsoft Rewards Bot (ReFree Pro)
+# 🎯 ReFree Pro
 
-A highly advanced Chrome extension that simulates realistic human browsing and search behavior using a built-in AI system — no API keys required.
+&gt; ✨ Automate your Bing Rewards collection effortlessly
+
+A browser extension that performs realistic, human-like searches in the background so you can earn points while you browse.
 
 ---
 
 ## 🚀 Features
 
-### 🤖 AI-Powered Search Engine
-
-* Built-in AI generates unique, non-repeating queries
-* Learns from previous searches
-* Evolves interests over time like a real user
-
----
-
-### 🧍 Human Behavior Simulation
-
-* Realistic typing (character-by-character)
-* Scroll behavior and dwell time
-* Random delays and imperfections
+| Feature | Description |
+|---------|-------------|
+| 🔒 **Background Operation** | Searches run in inactive tabs without interrupting your work |
+| 🤖 **Human-like Behavior** | Realistic typing, mouse movements, and scrolling patterns |
+| 🌙 **Smart Scheduling** | Auto-adjusts speed based on time of day |
+| 🧠 **AI Query Generation** | Creates varied, natural search queries |
+| 💾 **Persistent Settings** | Remembers your preferences between sessions |
+| 🌐 **Cross-browser** | Works on Chrome, Edge, and Firefox |
 
 ---
 
-### 👁️ Visual AI (Page Understanding)
+## 📦 Installation
 
-* Reads search results (titles + snippets)
-* Scores relevance based on query + learned interests
+### 🔵 Chrome / Edge
+1. 📥 Download the latest release and extract the ZIP
+2. 🧩 Open `chrome://extensions` (Chrome) or `edge://extensions` (Edge)
+3. ⚙️ Enable **Developer mode** (top right toggle)
+4. 📂 Click **Load unpacked** and select the extracted folder
+5. 🎉 Click the 🎯 ReFree Pro icon in your toolbar
 
----
-
-### ⏰ Time-Based Behavior
-
-* Morning: learning & informational searches
-* Afternoon: productivity & coding
-* Evening: entertainment & fun
-* Night: slow, random, or inactive
-
----
-
-### 🎛️ Full Control Panel
-
-* Set number of searches
-* Set interval between searches
-* Start / Stop bot anytime
+### 🟠 Firefox
+1. 📥 Download the latest release
+2. 🧩 Open `about:debugging` → **This Firefox**
+3. ⚙️ Click **Load Temporary Add-on**
+4. 📂 Select the `manifest.json` file
 
 ---
 
-### 🌐 Smart Search Targeting
+## 🎮 Usage
 
-* Searches directly in the current tab
-* Works on most websites with search boxes
-* Automatically detects input fields
+| Step | Action |
+|------|--------|
+| 1️⃣ | Click the 🎯 ReFree Pro icon in your toolbar |
+| 2️⃣ | 🔢 Enter **Number of searches** |
+| 3️⃣ | ⏱️ Enter **Interval** (seconds between searches) |
+| 4️⃣ | 🟢 Click **Start Bot** |
 
----
-
-### 🎨 Modern UI
-
-* Black + neon green hacker-style interface
-* Animated glow effects
-* Clean and responsive popup design
-
----
-
-## ⚙️ Installation
+### 🔄 What Happens Next🌐 Opens Bing in background tab
+⌨️  Types realistic search query
+🔍 Submits search
+❌ Closes tab automatically
+🔁 Repeats until complete
+🛑 Click **Stop Bot** anytime to pause.
 
 ---
 
-## 🧪 Usage Example
+## ⚙️ Settings
 
-| Setting  | Value  |
-| -------- | ------ |
-| Searches | 10     |
-| Interval | 10 sec |
+| Setting | Description | Example |
+|---------|-------------|---------|
+| 🔢 Number of searches | Total searches to perform | `30` |
+| ⏱️ Interval (seconds) | Delay between each search | `7` |
+
+💡 Settings auto-save and restore when you reopen the extension!
 
 ---
 
 ## 🧠 How It Works
 
-1. AI generates a query
-2. Bot types it like a human
-3. Page is analyzed using Visual AI
-5. Bot learns from interaction
-6. Behavior adapts over time
+ReFree Pro mimics human behavior using:
+
+| Technique | Purpose |
+|-----------|---------|
+| ⌨️  Variable typing speeds | Avoids robotic patterns |
+| 🖱️ Simulated mouse paths | Realistic cursor movement |
+| ⏳ Random delays | Natural timing variance |
+| 🎲 Query learning | Diverse search topics |
+| 🪟 Background tabs | No focus stealing |
+
 ---
 
-## ⚠️ Important Notes
+## 📁 File Structure
+📦 ReFree-Pro/
+├── 📄 manifest.json      # Extension config
+├── ⚙️  background.js      # Main bot logic
+├── 🎨 popup.html         # UI layout
+├── 🖱️  popup.js           # UI interactions
+├── 📝 content.js         # Page automation
+├── 🧠 brain.js           # Query AI
+├── 🎭 behavior.js        # Human actions
+├── 🕐 timeBehavior.js    # Time adjustments
+├── 👁️  visualAI.js        # Visual processing
+├── 💅 styles.css         # UI styling
+└── 🖼️  icons/             # Extension icons
 
-* This project is for **educational and experimental purposes only**
-* Not intended for:
+---
 
-  * Ad fraud
-  * Manipulation of services
-  * Violating platform terms of service
+## 🔐 Permissions
+
+| Permission | Why It's Needed |
+|------------|---------------|
+| 💾 `storage` | Save your settings |
+| 🗂️  `tabs` | Create search tabs |
+| 📜 `scripting` | Inject automation |
+
+---
+
+## ⚠️ Disclaimer
+
+> 🎓 **Educational purposes only**
+
+Use of automation tools may violate Terms of Service of rewards programs. Use at your own risk.
+
+---
+
+## 📜 License
+
+🆓 **MIT License** — modify and distribute freely!
+
+---
+
+## 🤝 Contributing
+
+🎉 Pull requests welcome!
+
+1. 🍴 Fork the repo
+2. 🌿 Create your feature branch (`git checkout -b feature/amazing`)
+3. 💾 Commit changes (`git commit -m 'Add amazing feature'`)
+4. 📤 Push to branch (`git push origin feature/amazing`)
+5. 🔁 Open a Pull Request
+
+---
+
+## 💬 Support
+
+🐛 Found a bug? Open an issue
+
+💡 Have an idea? Start a discussion
+
+---
+
+<p align="center">
+  🎯 <strong>ReFree Pro</strong> — Search smarter, not harder<br>
+  <sub>Requires internet connection and Microsoft account with Bing Rewards</sub>
+</p>
