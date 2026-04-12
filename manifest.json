@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "ReFree Pro",
+  "name": "ReFree",
   "version": "1.0",
-  "permissions": ["storage", "tabs", "scripting"],
+  "permissions": ["storage", "tabs", "scripting", "activeTab"],
   "host_permissions": ["<all_urls>"],
   "icons": {
     "16": "icon16.png",
@@ -28,7 +28,8 @@
         "behavior.js",
         "visualAI.js",
         "content.js"
-      ]
+      ],
+      "run_at": "document_idle"
     }
   ]
 }
