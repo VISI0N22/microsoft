@@ -12,14 +12,12 @@ let currentLoopId = null;
 let isRunning = false;
 let searchCount = 0;
 
-// ALWAYS USE BING
-const BING_ENGINE = {
-  name: "bing",
-  homepage: "https://www.bing.com"
-};
+// Bing URL format - uses direct search URL instead of form filling
+const BING_FORMAT = "https://www.bing.com/search?q=";
+const BING_FORMAT_END = "&qs=n&form=QBLH&sp=-1&pq=";
 
 async function runBot(settings) {
-  console.log(`🎯 ReFree Pro STARTING with Bing (${BING_ENGINE.homepage})`);
+  console.log(`🎯 ReFree STARTING`);
   console.log(`Settings: count=${settings.count}, interval=${settings.interval}`);
   
   searchCount = 0;
@@ -40,7 +38,7 @@ async function runBot(settings) {
       });
       
       if (data.stopRequested || !isRunning) {
-        console.log("Stop requested, halting ReFree Pro");
+        console.log("Stop requested, halting ReFree");
         isRunning = false;
         await new Promise(resolve => {
           browserAPI.storage.local.set({ running: false }, resolve);
@@ -49,7 +47,7 @@ async function runBot(settings) {
       }
 
       if (searchCount >= settings.count) {
-        console.log(`ReFree Pro completed ${searchCount} searches, stopping`);
+        console.log(`ReFree completed ${searchCount} searches`);
         isRunning = false;
         await new Promise(resolve => {
           browserAPI.storage.local.set({ running: false }, resolve);
@@ -58,83 +56,69 @@ async function runBot(settings) {
       }
 
       const profile = getTimeOfDayProfile();
-      console.log(`Time profile: ${profile.name}, activity: ${profile.activity}`);
-
       let baseDelay = (settings.interval * 1000) / profile.activity;
-      if (profile.name === "night") {
-        baseDelay *= 2;
-      }
+      if (profile.name === "night") baseDelay *= 2;
       
       let query = await generateQueryAI();
       searchCount++;
-      console.log(`ReFree Pro Search ${searchCount}/${settings.count}: "${query}" on Bing`);
+      console.log(`Search ${searchCount}/${settings.count}: "${query}"`);
 
-      await new Promise((resolve, reject) => {
-        browserAPI.tabs.create({ url: BING_ENGINE.homepage }, (tab) => {
-          if (browserAPI.runtime.lastError) {
-            console.error("Error creating tab:", browserAPI.runtime.lastError);
-            reject(browserAPI.runtime.lastError);
-            return;
-          }
-          
-          const tabId = tab.id;
-          console.log(`Created tab ${tabId}`);
-
-          const listener = (id, info) => {
-            if (id === tabId && info.status === "complete") {
-              browserAPI.tabs.onUpdated.removeListener(listener);
-              console.log(`Tab ${tabId} loaded, sending search`);
-
-              setTimeout(() => {
-                browserAPI.tabs.sendMessage(tabId, {
-                  action: "search",
-                  query: query,
-                  engine: "bing"
-                }, (response) => {
-                  if (browserAPI.runtime.lastError) {
-                    console.error("Message error:", browserAPI.runtime.lastError);
-                  }
-                });
-              }, 1500);
-
-              setTimeout(() => {
-                browserAPI.tabs.remove(tabId, () => {
-                  if (browserAPI.runtime.lastError) {
-                    console.error("Error removing tab:", browserAPI.runtime.lastError);
-                  }
-                });
-              }, 20000 + Math.random() * 20000);
-              
-              resolve();
-            }
-          };
-
-          browserAPI.tabs.onUpdated.addListener(listener);
-          
-          setTimeout(() => {
-            browserAPI.tabs.onUpdated.removeListener(listener);
-            resolve();
-          }, 30000);
-        });
-      });
+      // Create search URL and open/close tab (background method)
+      const searchUrl = BING_FORMAT + encodeURIComponent(query) + BING_FORMAT_END + encodeURIComponent(query);
+      openAndCloseTab(searchUrl);
 
       let delay = baseDelay + (Math.random() * 8000);
       console.log(`Waiting ${Math.round(delay/1000)}s before next search`);
-      
       currentLoopId = setTimeout(loop, delay);
       
     } catch (error) {
-      console.error("ReFree Pro error in loop:", error);
-      let delay = (settings.interval * 1000) + (Math.random() * 8000);
-      currentLoopId = setTimeout(loop, delay);
+      console.error("ReFree error:", error);
+      currentLoopId = setTimeout(loop, 5000);
     }
   }
 
   loop();
 }
 
+function openAndCloseTab(url) {
+  browserAPI.tabs.create({
+    url: url, 
+    active: false  // Keep in background
+  }, function(tab) {
+    if (browserAPI.runtime.lastError) {
+      console.error("Error creating tab:", browserAPI.runtime.lastError);
+      return;
+    }
+    
+    let tabId = tab.id;
+    console.log(`Created background tab ${tabId}`);
+
+    // Wait for tab to finish loading, then close it
+    browserAPI.tabs.onUpdated.addListener(function listener(id, info) {
+      if (id === tabId && info.status === "complete") {
+        browserAPI.tabs.onUpdated.removeListener(listener);
+        
+        // Close after short delay (500ms like your working code)
+        setTimeout(function() {
+          browserAPI.tabs.get(tabId, function(existingTab) {
+            if (!browserAPI.runtime.lastError && existingTab) {
+              browserAPI.tabs.remove(tabId);
+              console.log(`Closed tab ${tabId}`);
+            }
+          });
+        }, 500);
+      }
+    });
+    
+    // Fallback: force close after 10 seconds if never completes
+    setTimeout(function() {
+      browserAPI.tabs.remove(tabId).catch(() => {});
+    }, 10000);
+  });
+}
+
 function stopBot() {
-  console.log("Stopping ReFree Pro");
+  console.log("Stopping ReFree");
   isRunning = false;
   searchCount = 0;
   if (currentLoopId) {
@@ -147,12 +131,10 @@ browserAPI.storage.onChanged.addListener((changes) => {
   if (changes.running) {
     if (changes.running.newValue === true) {
       browserAPI.storage.local.get(["settings"], (data) => {
-        if (data.settings) {
-          if (!isRunning) {
-            runBot(data.settings);
-          }
+        if (data.settings && !isRunning) {
+          runBot(data.settings);
         } else {
-          console.error("No settings found");
+          console.error("No settings found or already running");
         }
       });
     } else if (changes.running.newValue === false) {
@@ -166,13 +148,11 @@ if (browserAPI.runtime.onStartup) {
     browserAPI.storage.local.get(["running"], (data) => {
       if (data.running) {
         browserAPI.storage.local.get(["settings"], (data) => {
-          if (data.settings) {
-            runBot(data.settings);
-          }
+          if (data.settings) runBot(data.settings);
         });
       }
     });
   });
 }
 
-console.log("ReFree Pro loaded and ready");
+console.log("ReFree loaded and ready (Background Tab Mode)");
